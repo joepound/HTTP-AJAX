@@ -4,7 +4,7 @@ import styled from "styled-components";
 import StyleVars from "../../StyleVars.js";
 
 const Header = props => {
-  const Wrapper = styled.div`
+  const Wrapper = styled.header`
     background-color: ${StyleVars.Colors.Header.bgColor};
     padding: 20px 0;
   `;
