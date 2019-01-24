@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
+import { Route } from "react-router-dom";
 import axios from "axios";
 
 import styled from "styled-components";
 import { Reset, GlobalStyles } from "./GlobalStyles.js";
-import StyleMixins from "./StyleMixins";
+import StyleVars from "./StyleVars.js";
 
 import Header from "./components/HeaderComponents/Header.js";
 import NewFriendForm from "./components/FriendComponents/NewFriendForm.js";
@@ -17,11 +18,12 @@ class App extends Component {
   componentDidMount() {
     axios
       .get("http://localhost:5000/friends")
-      .then(res => 
+      .then(res =>
         this.setState({
           friends: res.data
         })
-      ).catch(error => 
+      )
+      .catch(error =>
         this.setState({
           error
         })
@@ -36,7 +38,8 @@ class App extends Component {
     `;
 
     const DisplayArea = styled.main`
-      padding: 0 10px;
+      background-color: ${StyleVars.Colors.DisplayArea.bgColor};
+      padding: 25px;
       margin: 20px auto;
     `;
 
@@ -47,6 +50,7 @@ class App extends Component {
         <AppBlock>
           <Header />
           <DisplayArea>
+            <Route path="/add" render={props => <NewFriendForm {...props} />} />
           </DisplayArea>
         </AppBlock>
       </Fragment>

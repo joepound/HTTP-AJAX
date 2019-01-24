@@ -1,7 +1,8 @@
 const ColorNames = {
   mineShaft: "#2C2C2C",
   snowDrift: "#F7FAF7",
-  wildSand: "#F4F4F4"
+  wildSand: "#F4F4F4",
+  silver: "#c0c0c0"
 };
 
 const StyleVars = {
@@ -15,8 +16,15 @@ const StyleVars = {
       bgColor: ColorNames.mineShaft,
       fontColor: ColorNames.snowDrift
     },
-    FriendForm: {
+    DisplayArea: {
       bgColor: ColorNames.wildSand
+    },
+    Form: {
+      Button: {
+        bgColor: ColorNames.mineShaft,
+        fontColor: ColorNames.snowDrift,
+        borderColor: ColorNames.silver
+      }
     }
   }
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 import styled from "styled-components";
 import StyleVars from "../../StyleVars.js";
@@ -30,7 +30,11 @@ const Header = props => {
 
   return (
     <Wrapper>
-      <AppName><NavLink exact to="/">Friends</NavLink></AppName>
+      <AppName>
+        <NavLink exact to="/">
+          Friends
+        </NavLink>
+      </AppName>
       <NavBar />
     </Wrapper>
   );
