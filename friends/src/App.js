@@ -8,10 +8,17 @@ import StyleVars from "./StyleVars.js";
 
 import Header from "./components/HeaderComponents/Header.js";
 import NewFriendForm from "./components/FriendComponents/NewFriendForm.js";
+import FriendPage from "./components/FriendComponents/FriendPage.js";
 
 class App extends Component {
   state = {
     friends: [],
+    newFirstName: "",
+    newLastName: "",
+    newEmail: "",
+    newAge: "",
+    selectedFriend: {},
+    selectedFriendId: "",
     error: ""
   };
 
@@ -19,9 +26,12 @@ class App extends Component {
     axios
       .get("http://localhost:5000/friends")
       .then(res =>
-        this.setState({
-          friends: res.data
-        })
+        this.setState(
+          {
+            friends: res.data
+          },
+          () => console.log(this.state.friends)
+        )
       )
       .catch(error =>
         this.setState({
@@ -29,6 +39,20 @@ class App extends Component {
         })
       );
   }
+
+  handleChange = e => {
+    switch (e.currentTarget.id || e.currentTarget.name) {
+      case "friendSelect":
+        const selectedFriend = this.state.friends[e.currentTarget.value];
+        this.setState({
+          selectedFriend,
+          selectedFriendId: selectedFriend.id
+        });
+        break;
+    }
+  };
+
+  handleClick = e => {};
 
   render() {
     const AppBlock = styled.div`
@@ -50,7 +74,24 @@ class App extends Component {
         <AppBlock>
           <Header />
           <DisplayArea>
-            <Route path="/add" render={props => <NewFriendForm {...props} />} />
+            <Route
+              path="/add"
+              render={props => (
+                <NewFriendForm {...props} handleClick={this.handleClick} />
+              )}
+            />
+            <Route
+              path="/friends"
+              render={props => (
+                <FriendPage
+                  {...props}
+                  friends={this.state.friends}
+                  selectedFriend={this.state.selectedFriend}
+                  selectedFriendId={this.state.selectedFriendId}
+                  handleChange={this.handleChange}
+                />
+              )}
+            />
           </DisplayArea>
         </AppBlock>
       </Fragment>

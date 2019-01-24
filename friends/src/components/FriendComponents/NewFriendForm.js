@@ -44,7 +44,7 @@ const NewFriendForm = props => {
     // Used id attributes to match labels and meet accessibility standards
     <form>
       <FormTextField>
-        <label for="add-friend-name">First Name</label>
+        <label htmlFor="add-friend-name">First Name</label>
         <input
           id="friendFirstName"
           type="text"
@@ -53,7 +53,7 @@ const NewFriendForm = props => {
         />
       </FormTextField>
       <FormTextField>
-        <label for="add-friend-name">Last Name</label>
+        <label htmlFor="add-friend-name">Last Name</label>
         <input
           id="friendLastName"
           type="text"
@@ -62,7 +62,7 @@ const NewFriendForm = props => {
         />
       </FormTextField>
       <FormTextField>
-        <label for="add-friend-name">Email Address</label>
+        <label htmlFor="add-friend-name">Email Address</label>
         <input
           id="friendEmailAddress"
           type="email"
@@ -71,7 +71,7 @@ const NewFriendForm = props => {
         />
       </FormTextField>
       <FormNumberField>
-        <label for="add-friend-name">Age:</label>
+        <label htmlFor="add-friend-name">Age:</label>
         <input id="friendAge" type="number" min="0" placeholder="Age" required />
       </FormNumberField>
       <FormButtons>
