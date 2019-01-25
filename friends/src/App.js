@@ -13,12 +13,9 @@ import FriendPage from "./components/FriendComponents/FriendPage.js";
 class App extends Component {
   state = {
     friends: [],
-    newFirstName: "",
-    newLastName: "",
-    newEmail: "",
-    newAge: "",
     selectedFriend: {},
-    error: ""
+    error: "",
+    temp: ""
   };
 
   componentDidMount() {
@@ -39,46 +36,52 @@ class App extends Component {
       );
   }
 
-  randomizer() {
-    return `${Math.floor(Math.random() * 1000) + String(Date.now()) + Math.floor(Math.random() * 1000)}`;
+  generateId() {
+    return `${Math.floor(Math.random() * 1000) +
+      String(Date.now()) +
+      Math.floor(Math.random() * 1000)}`;
   }
 
   handleChange = e => {
     switch (e.currentTarget.id || e.currentTarget.name) {
-      case "friendSelect" :
+      case "friendSelect":
         this.setState({
-          selectedFriend: this.state.friends.find(friend => friend.id === e.currentTarget.value) || ""
+          selectedFriend:
+            this.state.friends.find(
+              friend => friend.id === e.currentTarget.value
+            ) || ""
         });
         break;
-      default :
+      default:
         this.setState({
-          [e.currentTarget.id]: e.currentTarget.value
+          [e.currentTarget.id || e.currentTarget.name]: e.currentTarget.value
         });
     }
   };
 
   handleSubmit = e => {
-    switch(e.currentTarget.id || e.currentTarget.name) {
-      case "newFriendForm" :
+    e.preventDefault();
+    switch (e.currentTarget.id || e.currentTarget.name) {
+      case "newFriendForm":
+        const postObject = {
+          id: this.generateId(),
+          firstname: e.currentTarget[0].value,
+          lastname: e.currentTarget[1].value,
+          age: e.currentTarget[2].value,
+          email: e.currentTarget[3].value
+        }
+
         axios
-          .post("http://localhost:5000/friends", {
-            id: this.randomizer(),
-            firstname: this.state.newFirstName,
-            lastname: this.state.newLastName,
-            age: this.state.newAge,
-            email: this.state.newEmail
-          })
+          .post("http://localhost:5000/friends", {...postObject})
           .then(res => {
-            this.setState({
-              message: res.statusText,
-              friends: res.data,
-              newFirstName: "",
-              newLastName: "",
-              newEmail: "",
-              newAge: "",
-              selectedFriend: {},
-              selectedFriendId: ""
-            }, () => console.log(this.state.friends))
+            this.setState(
+              {
+                message: res.statusText,
+                friends: res.data,
+                selectedFriend: {}
+              },
+              () => console.log(this.state.friends)
+            );
           })
           .catch(error =>
             this.setState({
@@ -115,12 +118,6 @@ class App extends Component {
               path="/add"
               render={props => (
                 <NewFriendForm
-                  {...props}
-                  newFirstName={this.state.newFirstName}
-                  newLastName={this.state.newLastName}
-                  newAge={this.state.newAge}
-                  newEmail={this.state.newEmail}
-                  handleChange={this.handleChange}
                   handleSubmit={this.handleSubmit}
                 />
               )}
@@ -129,10 +126,8 @@ class App extends Component {
               path="/friends"
               render={props => (
                 <FriendPage
-                  {...props}
                   friends={this.state.friends}
                   selectedFriend={this.state.selectedFriend}
-                  selectedFriendId={this.state.selectedFriendId}
                   handleChange={this.handleChange}
                 />
               )}

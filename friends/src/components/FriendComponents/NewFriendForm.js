@@ -40,6 +40,8 @@ const NewFriendForm = props => {
     }
   `;
 
+  const firstname = props.newFirstName;
+
   return (
     // Used id attributes to match labels and meet accessibility standards
     <form name="newFriendForm" onSubmit={props.handleSubmit}>
@@ -50,8 +52,6 @@ const NewFriendForm = props => {
           type="text"
           placeholder="Enter your first name"
           required
-          onChange={props.handleChange}
-          value={props.newFirstName}
         />
       </FormTextField>
       <FormTextField>
@@ -61,8 +61,6 @@ const NewFriendForm = props => {
           type="text"
           placeholder="Enter your first name"
           required
-          onChange={props.handleChange}
-          value={props.newLastName}
         />
       </FormTextField>
       <FormTextField>
@@ -72,8 +70,6 @@ const NewFriendForm = props => {
           type="email"
           placeholder="Enter your email address"
           required
-          onChange={props.handleChange}
-          value={props.newEmail}
         />
       </FormTextField>
       <FormNumberField>
@@ -84,8 +80,6 @@ const NewFriendForm = props => {
           min="0"
           placeholder="Age"
           required
-          onChange={props.handleChange}
-          value={props.newAge}
         />
       </FormNumberField>
       <FormButtons>
