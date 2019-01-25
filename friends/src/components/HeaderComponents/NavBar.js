@@ -1,9 +1,9 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 import styled from "styled-components";
 import StyleVars from "../../StyleVars";
-import StyleMixins from '../../StyleMixins';
+import StyleMixins from "../../StyleMixins";
 
 const NavBar = props => {
   const NavArea = styled.nav`
@@ -29,7 +29,7 @@ const NavBar = props => {
       transition: all 375ms;
     }
 
-    &:active{
+    &:active {
       transform: scale(1.1);
       transition: all 125ms;
     }
@@ -44,11 +44,19 @@ const NavBar = props => {
   return (
     <NavArea>
       <ul>
-        <li><NavBarItem exact to="/add">Add Friends</NavBarItem></li>
-        <li><NavBarItem exact to="/friends">View Friends</NavBarItem></li>
+        <li>
+          <NavBarItem exact to="/add">
+            Add Friends
+          </NavBarItem>
+        </li>
+        <li>
+          <NavBarItem exact to="/friends">
+            View Friends
+          </NavBarItem>
+        </li>
       </ul>
     </NavArea>
-  )
+  );
 };
 
 export default NavBar;
