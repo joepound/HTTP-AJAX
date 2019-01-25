@@ -18,7 +18,6 @@ class App extends Component {
     newEmail: "",
     newAge: "",
     selectedFriend: {},
-    selectedFriendId: "",
     error: ""
   };
 
@@ -40,14 +39,52 @@ class App extends Component {
       );
   }
 
+  randomizer() {
+    return `${Math.floor(Math.random() * 1000) + String(Date.now()) + Math.floor(Math.random() * 1000)}`;
+  }
+
   handleChange = e => {
     switch (e.currentTarget.id || e.currentTarget.name) {
-      case "friendSelect":
-        const selectedFriend = this.state.friends[e.currentTarget.value];
+      case "friendSelect" :
         this.setState({
-          selectedFriend,
-          selectedFriendId: selectedFriend.id
+          selectedFriend: this.state.friends.find(friend => friend.id === e.currentTarget.value) || ""
         });
+        break;
+      default :
+        this.setState({
+          [e.currentTarget.id]: e.currentTarget.value
+        });
+    }
+  };
+
+  handleSubmit = e => {
+    switch(e.currentTarget.id || e.currentTarget.name) {
+      case "newFriendForm" :
+        axios
+          .post("http://localhost:5000/friends", {
+            id: this.randomizer(),
+            firstname: this.state.newFirstName,
+            lastname: this.state.newLastName,
+            age: this.state.newAge,
+            email: this.state.newEmail
+          })
+          .then(res => {
+            this.setState({
+              message: res.statusText,
+              friends: res.data,
+              newFirstName: "",
+              newLastName: "",
+              newEmail: "",
+              newAge: "",
+              selectedFriend: {},
+              selectedFriendId: ""
+            }, () => console.log(this.state.friends))
+          })
+          .catch(error =>
+            this.setState({
+              error
+            })
+          );
         break;
     }
   };
@@ -77,7 +114,15 @@ class App extends Component {
             <Route
               path="/add"
               render={props => (
-                <NewFriendForm {...props} handleClick={this.handleClick} />
+                <NewFriendForm
+                  {...props}
+                  newFirstName={this.state.newFirstName}
+                  newLastName={this.state.newLastName}
+                  newAge={this.state.newAge}
+                  newEmail={this.state.newEmail}
+                  handleChange={this.handleChange}
+                  handleSubmit={this.handleSubmit}
+                />
               )}
             />
             <Route

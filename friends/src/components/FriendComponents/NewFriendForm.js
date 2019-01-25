@@ -42,37 +42,51 @@ const NewFriendForm = props => {
 
   return (
     // Used id attributes to match labels and meet accessibility standards
-    <form>
+    <form name="newFriendForm" onSubmit={props.handleSubmit}>
       <FormTextField>
         <label htmlFor="add-friend-name">First Name</label>
         <input
-          id="friendFirstName"
+          id="newFirstName"
           type="text"
           placeholder="Enter your first name"
           required
+          onChange={props.handleChange}
+          value={props.newFirstName}
         />
       </FormTextField>
       <FormTextField>
         <label htmlFor="add-friend-name">Last Name</label>
         <input
-          id="friendLastName"
+          id="newLastName"
           type="text"
           placeholder="Enter your first name"
           required
+          onChange={props.handleChange}
+          value={props.newLastName}
         />
       </FormTextField>
       <FormTextField>
         <label htmlFor="add-friend-name">Email Address</label>
         <input
-          id="friendEmailAddress"
+          id="newEmail"
           type="email"
           placeholder="Enter your email address"
           required
+          onChange={props.handleChange}
+          value={props.newEmail}
         />
       </FormTextField>
       <FormNumberField>
         <label htmlFor="add-friend-name">Age:</label>
-        <input id="friendAge" type="number" min="0" placeholder="Age" required />
+        <input
+          id="newAge"
+          type="number"
+          min="0"
+          placeholder="Age"
+          required
+          onChange={props.handleChange}
+          value={props.newAge}
+        />
       </FormNumberField>
       <FormButtons>
         <button type="submit">Submit</button>

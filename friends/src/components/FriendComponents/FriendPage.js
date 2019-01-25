@@ -38,7 +38,7 @@ const FriendPage = props => {
         {props.friends.length ? (
           <Fragment>
             <label htmlFor="friendSelect">Select a friend:</label>
-            <select id="friendSelect" onChange={props.handleChange} value={props.selectedFriendId}>
+            <select id="friendSelect" onChange={props.handleChange} value={props.selectedFriend ? props.selectedFriend.id : ""}>
               <option defaultValue hidden>
                 Select a friend:
               </option>
